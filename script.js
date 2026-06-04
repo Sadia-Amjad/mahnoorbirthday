@@ -6,8 +6,8 @@ const gallerySection = document.getElementById("gallerySection");
 const finalSection = document.getElementById("finalSection");
 const continueBtn = document.getElementById("continueBtn");
 
-// Mobile-Proof HTML5 Audio Context Engine
-const music = document.getElementById("bg-music");
+// Initialize Secret SoundCloud API Controller Integration
+const widget = SC.Widget(document.getElementById("sc-player"));
 
 // Universal Transition Wrapper
 function transitionPages(current, next) {
@@ -22,17 +22,13 @@ function transitionPages(current, next) {
 }
 
 /* ==========================================================================
-   1. INTRO SCENE TRIGGER (Unlocks Mobile Speakers Instantly)
+   1. INTRO SCENE TRIGGER (Mobile-Optimized Focus)
    ========================================================================== */
 document.getElementById("startBtn").onclick = () => {
+    // Mobile browsers require 100% focused attention to play audio. 
+    // We stay on the same domain so the music plays perfectly on phones!
     transitionPages(intro, envelopeSection);
-    
-    // Native HTML5 audio play command - accepted flawlessly by iOS and Android on a user click!
-    if (music) {
-        music.play().catch(error => {
-            console.log("Audio playback failed:", error);
-        });
-    }
+    widget.play();
 };
 
 /* ==========================================================================
@@ -98,6 +94,8 @@ giftBox.addEventListener("click", () => {
         triggerConfettiStorm(130);
         fireworksSystem.activate();
 
+        // 🎁 MOBILE REDIRECT WINNER: 
+        // Opening the surprise link here acts as a physical reward for breaking the orb!
         // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
         setTimeout(() => {
             window.open("https://your-custom-link-here.com", "_blank");
