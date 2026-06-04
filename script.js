@@ -6,8 +6,8 @@ const gallerySection = document.getElementById("gallerySection");
 const finalSection = document.getElementById("finalSection");
 const continueBtn = document.getElementById("continueBtn");
 
-// Initialize Secret SoundCloud API Controller Integration
-const widget = SC.Widget(document.getElementById("sc-player"));
+// Mobile-Proof HTML5 Audio Context Engine
+const music = document.getElementById("bg-music");
 
 // Universal Transition Wrapper
 function transitionPages(current, next) {
@@ -22,12 +22,17 @@ function transitionPages(current, next) {
 }
 
 /* ==========================================================================
-   1. INTRO SCENE TRIGGER
+   1. INTRO SCENE TRIGGER (Unlocks Mobile Speakers Instantly)
    ========================================================================== */
 document.getElementById("startBtn").onclick = () => {
     transitionPages(intro, envelopeSection);
-    // Fires the background song streaming through the SoundCloud Frame API link
-    widget.play();
+    
+    // Native HTML5 audio play command - accepted flawlessly by iOS and Android on a user click!
+    if (music) {
+        music.play().catch(error => {
+            console.log("Audio playback failed:", error);
+        });
+    }
 };
 
 /* ==========================================================================
@@ -70,7 +75,7 @@ continueBtn.onclick = () => {
 };
 
 /* ==========================================================================
-   4. CELESTIAL ORB ENHANCED INTERACTION MECHANISM
+   4. CELESTIAL ORB INTERACTION MECHANISM & EXTERNAL REDIRECT
    ========================================================================== */
 const giftBox = document.getElementById("giftBox");
 const giftStatus = document.getElementById("giftStatus");
@@ -80,21 +85,23 @@ giftBox.addEventListener("click", () => {
     let currentStage = parseInt(giftBox.getAttribute("data-stage"));
 
     if (currentStage === 0) {
-        // Stage 1: Core Awakens & Cracks Into Critical Vibration Status
         giftBox.classList.add("cracking");
         giftStatus.innerHTML = "Energy levels spiking... ⚡";
         giftBox.setAttribute("data-stage", "1");
 
     } else if (currentStage === 1) {
-        // Stage 2: Core Explodes completely, Revealing Levitating Card Vector
         giftBox.classList.remove("cracking");
         giftBox.classList.add("shattered");
         giftBox.setAttribute("data-stage", "2");
         giftStatus.style.display = "none";
         
-        // Unleash Full Screen Spatial Effects Matrix
         triggerConfettiStorm(130);
         fireworksSystem.activate();
+
+        // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
+        setTimeout(() => {
+            window.open("https://your-custom-link-here.com", "_blank");
+        }, 400);
 
         setTimeout(() => {
             surpriseMessage.style.display = "block";
@@ -225,7 +232,7 @@ const fireworksSystem = {
 
             particle.x += particle.dx;
             particle.y += particle.dy;
-            particle.dy += 0.035; // Fine gravitational drag constant
+            particle.dy += 0.035;
         });
 
         requestAnimationFrame(() => this.renderLoop());
