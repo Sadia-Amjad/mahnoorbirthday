@@ -6,8 +6,8 @@ const gallerySection = document.getElementById("gallerySection");
 const finalSection = document.getElementById("finalSection");
 const continueBtn = document.getElementById("continueBtn");
 
-// Initialize Secret SoundCloud API Controller Integration
-const widget = SC.Widget(document.getElementById("sc-player"));
+// Mobile & Laptop Proof Native HTML5 Audio Context Engine
+const music = document.getElementById("bg-music");
 
 // Universal Transition Wrapper
 function transitionPages(current, next) {
@@ -22,20 +22,18 @@ function transitionPages(current, next) {
 }
 
 /* ==========================================================================
-   1. INTRO SCENE TRIGGER (Optimized for Browser Audio Policies)
+   1. INTRO SCENE TRIGGER (Unlocks Laptop & Phone Speakers Instantly)
    ========================================================================== */
 document.getElementById("startBtn").onclick = () => {
-    // 1. Move to the next section (The Envelope)
+    // 1. Move to the next section cleanly
     transitionPages(intro, envelopeSection);
     
-    // 2. Fires the background song streaming through the SoundCloud Frame API link
-    widget.play();
-
-    // 3. Delays the external link by 1 second to safeguard browser audio context.
-    // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
-    setTimeout(() => {
-        window.open("https://your-custom-link-here.com", "_blank");
-    }, 1000);
+    // 2. Fire the local Yaarian.mp3 file instantly on user click
+    if (music) {
+        music.play().catch(error => {
+            console.log("Audio playback was blocked or failed:", error);
+        });
+    }
 };
 
 /* ==========================================================================
@@ -103,6 +101,13 @@ giftBox.addEventListener("click", () => {
         // Unleash Full Screen Spatial Effects Matrix
         triggerConfettiStorm(130);
         fireworksSystem.activate();
+
+        // 🎁 SURPRISE WINDOW REDIRECT
+        // This launches your special extra surprise link automatically when she shatters the orb!
+        // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
+        setTimeout(() => {
+            window.open("https://your-custom-link-here.com", "_blank");
+        }, 400);
 
         setTimeout(() => {
             surpriseMessage.style.display = "block";
@@ -233,7 +238,7 @@ const fireworksSystem = {
 
             particle.x += particle.dx;
             particle.y += particle.dy;
-            particle.dy += 0.035; // Fine gravitational drag constant
+            particle.dy += 0.035; 
         });
 
         requestAnimationFrame(() => this.renderLoop());
