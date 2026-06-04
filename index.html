@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mahnoor ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="fireworks"></canvas>
+    <div id="ambientGlow"></div>
+
+    <section id="intro" class="active-section">
+        <div class="intro-content">
+            <h1 class="glam-title">A Special Day ✨</h1>
+            <p class="sub-title">For Someone Truly Special...</p>
+            <button id="startBtn" class="premium-btn">Open Your Surprise ❤️</button>
+        </div>
+    </section>
+
+    <section id="envelopeSection">
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <div class="cover"></div>
+                <div class="letter-icon">💌</div>
+            </div>
+            <p class="hint">Tap the royal envelope to unlock your letter...</p>
+        </div>
+    </section>
+
+    <section id="letterSection">
+        <div class="letter-card">
+            <h2>Dear Mahnoor ❤️</h2>
+            <div id="typing-container">
+                <p id="typing"></p>
+            </div>
+            <button id="continueBtn" class="premium-btn">Continue ✨</button>
+        </div>
+    </section>
+
+    <section id="gallerySection">
+        <h1 class="section-title">Beautiful Memories 📸</h1>
+        
+        <div class="gallery">
+            <div class="img-frame"><img src="mahnoor1.jpeg" alt="Memory 1"></div>
+            <div class="img-frame"><img src="mahnoor2.jpeg" alt="Memory 2"></div>
+            <div class="img-frame"><img src="mahnoor3.jpeg" alt="Memory 3"></div>
+            <div class="img-frame"><img src="mahnoor4.jpeg" alt="Memory 4"></div>
+        </div>
+
+        <hr class="elegant-divider">
+
+        <div id="grandGiftWrapper">
+            <h2 class="gift-heading">Touch the Celestial Core ✨</h2>
+            
+            <div class="pedestal-zone">
+                <div class="altar-base"></div>
+                <div class="altar-glow"></div>
+                
+                <div class="crystal-orb" id="giftBox" data-stage="0">
+                    <div class="orb-core"></div>
+                    <div class="orb-ring-1"></div>
+                    <div class="orb-ring-2"></div>
+                    <div class="energy-flares"></div>
+                    
+                    <div class="hidden-prize" id="hiddenPrize">
+                        <div class="aura-card">
+                            <div class="card-shimmer"></div>
+                            <span class="crown-icon">👑</span>
+                            <h3>Mahnoor</h3>
+                            <div class="badge-line">Purest Soul</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="gift-text" id="giftStatus">Tap the crystal orb to awaken its power... 🔮</p>
+        </div>
+
+        <div id="surpriseMessage">
+            <h2>🎉 The Universe Shines For You 🎉</h2>
+            <p class="deep-wish">You carry a light within you that makes the entire world a softer, happier place. Thank you for simply being you.</p>
+            <button id="viewFinalBtn" class="premium-btn gold-pulse">Make a Wish 🎂</button>
+        </div>
+    </section>
+
+    <section id="finalSection">
+        <h1 class="birthday-title">🎂 HAPPY BIRTHDAY 🎂</h1>
+        <h2 class="name-badge">MAHNOOR ❤️</h2>
+        
+        <div class="cake-arena">
+            <div class="cake" id="cake">
+                <div class="frosting-drips"></div>
+                <div class="candle" id="candle">
+                    <div class="flame" id="flame"></div>
+                </div>
+            </div>
+            <p class="cake-hint" id="cakeHint">Make your ultimate wish and tap the flame to blow it out! 🕯️</p>
+        </div>
+
+        <div class="final-wishes-box" id="finalWishes">
+            <p class="wish-line">✨ You are one of the most beautiful souls to ever grace this world.</p>
+            <p class="wish-line">✨ May pure happiness find its way to you, wherever life guides you.</p>
+            <p class="wish-line">✨ May your sweetest intentions manifest into reality this coming year.</p>
+            <p class="wish-line">✨ May your legendary smile remain as bright and beautiful as it is today.</p>
+            <div class="gold-seal">✨ You Deserve The Whole Universe ✨</div>
+        </div>
+    </section>
+
+    <div style="display:none;">
+        <iframe id="sc-player" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/894583738&auto_play=false" allow="autoplay"></iframe>
+    </div>
+
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
