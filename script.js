@@ -1,4 +1,6 @@
-// Screen Architecture References
+/* ==========================================================================
+   GLOBAL ARCHITECTURE & SAFETY REFERENCES
+   ========================================================================== */
 const intro = document.getElementById("intro");
 const envelopeSection = document.getElementById("envelopeSection");
 const letterSection = document.getElementById("letterSection");
@@ -9,8 +11,12 @@ const continueBtn = document.getElementById("continueBtn");
 // Mobile & Laptop Proof Native HTML5 Audio Context Engine
 const music = document.getElementById("bg-music");
 
-// Universal Transition Wrapper
+// Universal Transition Wrapper with Null-Safety Guards
 function transitionPages(current, next) {
+    if (!current || !next) {
+        console.error("Navigation Error: One or more section references are missing in your HTML.");
+        return;
+    }
     current.classList.remove("active-section");
     setTimeout(() => {
         current.style.display = "none";
@@ -24,28 +30,33 @@ function transitionPages(current, next) {
 /* ==========================================================================
    1. INTRO SCENE TRIGGER (Unlocks Laptop & Phone Speakers Instantly)
    ========================================================================== */
-document.getElementById("startBtn").onclick = () => {
-    // 1. Move to the next section cleanly
-    transitionPages(intro, envelopeSection);
-    
-    // 2. Fire the local Yaarian.mp3 file instantly on user click
-    if (music) {
-        music.play().catch(error => {
-            console.log("Audio playback was blocked or failed:", error);
-        });
-    }
-};
+const startBtn = document.getElementById("startBtn");
+if (startBtn) {
+    startBtn.onclick = () => {
+        transitionPages(intro, envelopeSection);
+        
+        // Native HTML5 audio play command - accepted flawlessly by iOS, Android, and Laptops
+        if (music) {
+            music.play().catch(error => {
+                console.log("Audio playback notice: Interaction captured, awaiting system sound access.", error);
+            });
+        }
+    };
+}
 
 /* ==========================================================================
    2. ROYAL ENVELOPE INTERACTION
    ========================================================================== */
-document.getElementById("envelope").onclick = () => {
-    transitionPages(envelopeSection, letterSection);
-    setTimeout(startTypewriter, 600);
-};
+const envelope = document.getElementById("envelope");
+if (envelope) {
+    envelope.onclick = () => {
+        transitionPages(envelopeSection, letterSection);
+        setTimeout(startTypewriter, 600);
+    };
+}
 
 /* ==========================================================================
-   3. LETTER TYPING CONTROLLER
+   3. LETTER TYPING CONTROLLER (Protected Against Blank Screen Freezes)
    ========================================================================== */
 const text = `Today is not just another day.
 Today is the celebration of someone truly wonderful.
@@ -61,64 +72,89 @@ Happy Birthday Mahnoor ❤️`;
 let charIndex = 0;
 function startTypewriter() {
     const typingField = document.getElementById("typing");
-    if (charIndex < text.length) {
-        typingField.innerHTML += text.charAt(charIndex);
-        charIndex++;
-        setTimeout(startTypewriter, 35);
+    
+    if (typingField) {
+        if (charIndex < text.length) {
+            // Converts line breaks cleanly into web presentation format
+            if (text.charAt(charIndex) === '\n') {
+                typingField.innerHTML += '<br>';
+            } else {
+                typingField.innerHTML += text.charAt(charIndex);
+            }
+            charIndex++;
+            setTimeout(startTypewriter, 35);
+        } else {
+            // Reveals the next interface phase action element smoothly
+            if (continueBtn) {
+                continueBtn.style.display = "inline-block";
+                continueBtn.style.animation = "beautifulScaleIn 0.5s ease-out forwards";
+            }
+        }
     } else {
-        continueBtn.style.display = "inline-block";
-        continueBtn.style.animation = "beautifulScaleIn 0.5s ease-out forwards";
+        // Emergency Fallback: If 'typing' paragraph target is missing, do not freeze.
+        console.warn("Safety Warning: Target element ID 'typing' not found in HTML. Bypassing animation.");
+        if (continueBtn) {
+            continueBtn.style.display = "inline-block";
+        }
     }
 }
 
-continueBtn.onclick = () => {
-    transitionPages(letterSection, gallerySection);
-};
+if (continueBtn) {
+    continueBtn.onclick = () => {
+        transitionPages(letterSection, gallerySection);
+    };
+}
 
 /* ==========================================================================
-   4. CELESTIAL ORB ENHANCED INTERACTION MECHANISM
+   4. CELESTIAL ORB INTERACTION MECHANISM & EXTRA REDIRECT
    ========================================================================== */
 const giftBox = document.getElementById("giftBox");
 const giftStatus = document.getElementById("giftStatus");
 const surpriseMessage = document.getElementById("surpriseMessage");
 
-giftBox.addEventListener("click", () => {
-    let currentStage = parseInt(giftBox.getAttribute("data-stage"));
+if (giftBox) {
+    giftBox.addEventListener("click", () => {
+        let currentStage = parseInt(giftBox.getAttribute("data-stage") || "0");
 
-    if (currentStage === 0) {
-        // Stage 1: Core Awakens & Cracks Into Critical Vibration Status
-        giftBox.classList.add("cracking");
-        giftStatus.innerHTML = "Energy levels spiking... ⚡";
-        giftBox.setAttribute("data-stage", "1");
+        if (currentStage === 0) {
+            // Stage 1: Core Awakens & Cracks Into Critical Vibration Status
+            giftBox.classList.add("cracking");
+            if (giftStatus) giftStatus.innerHTML = "Energy levels spiking... ⚡";
+            giftBox.setAttribute("data-stage", "1");
 
-    } else if (currentStage === 1) {
-        // Stage 2: Core Explodes completely, Revealing Levitating Card Vector
-        giftBox.classList.remove("cracking");
-        giftBox.classList.add("shattered");
-        giftBox.setAttribute("data-stage", "2");
-        giftStatus.style.display = "none";
-        
-        // Unleash Full Screen Spatial Effects Matrix
-        triggerConfettiStorm(130);
-        fireworksSystem.activate();
+        } else if (currentStage === 1) {
+            // Stage 2: Core Explodes completely, Revealing Levitating Card Vector
+            giftBox.classList.remove("cracking");
+            giftBox.classList.add("shattered");
+            giftBox.setAttribute("data-stage", "2");
+            if (giftStatus) giftStatus.style.display = "none";
+            
+            // Unleash Full Screen Spatial Effects Matrix
+            triggerConfettiStorm(130);
+            fireworksSystem.activate();
 
-        // 🎁 SURPRISE WINDOW REDIRECT
-        // This launches your special extra surprise link automatically when she shatters the orb!
-        // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
-        setTimeout(() => {
-            window.open("https://your-custom-link-here.com", "_blank");
-        }, 400);
+            // 🎁 SURPRISE WINDOW REDIRECT
+            // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
+            setTimeout(() => {
+                window.open("https://your-custom-link-here.com", "_blank");
+            }, 400);
 
-        setTimeout(() => {
-            surpriseMessage.style.display = "block";
-            surpriseMessage.scrollIntoView({ behavior: 'smooth' });
-        }, 800);
-    }
-});
+            if (surpriseMessage) {
+                setTimeout(() => {
+                    surpriseMessage.style.display = "block";
+                    surpriseMessage.scrollIntoView({ behavior: 'smooth' });
+                }, 800);
+            }
+        }
+    });
+}
 
-document.getElementById("viewFinalBtn").onclick = () => {
-    transitionPages(gallerySection, finalSection);
-};
+const viewFinalBtn = document.getElementById("viewFinalBtn");
+if (viewFinalBtn) {
+    viewFinalBtn.onclick = () => {
+        transitionPages(gallerySection, finalSection);
+    };
+}
 
 /* ==========================================================================
    5. CAKE BLOW VECTORS
@@ -127,16 +163,22 @@ const flame = document.getElementById("flame");
 const cakeHint = document.getElementById("cakeHint");
 const finalWishes = document.getElementById("finalWishes");
 
-flame.addEventListener("click", () => {
-    flame.style.display = "none";
-    cakeHint.innerHTML = "✨ Your wish was sent directly to the stars! ✨";
-    cakeHint.style.color = "#ffd700";
-    
-    finalWishes.classList.add("unveil-wishes");
-    
-    fireworksSystem.escalate();
-    triggerConfettiStorm(150);
-});
+if (flame) {
+    flame.addEventListener("click", () => {
+        flame.style.display = "none";
+        if (cakeHint) {
+            cakeHint.innerHTML = "✨ Your wish was sent directly to the stars! ✨";
+            cakeHint.style.color = "#ffd700";
+        }
+        
+        if (finalWishes) {
+            finalWishes.classList.add("unveil-wishes");
+        }
+        
+        fireworksSystem.escalate();
+        triggerConfettiStorm(150);
+    });
+}
 
 /* ==========================================================================
    CONFETTI GENERATOR
@@ -170,9 +212,11 @@ const fireworksSystem = {
 
     init() {
         this.canvas = document.getElementById("fireworks");
-        this.ctx = this.canvas.getContext("2d");
-        this.resize();
-        window.addEventListener('resize', () => this.resize());
+        if (this.canvas) {
+            this.ctx = this.canvas.getContext("2d");
+            this.resize();
+            window.addEventListener('resize', () => this.resize());
+        }
     },
 
     resize() {
@@ -185,9 +229,11 @@ const fireworksSystem = {
     activate() {
         if (this.isActive) return;
         this.init();
-        this.isActive = true;
-        this.populate(this.capacity);
-        this.renderLoop();
+        if (this.ctx) {
+            this.isActive = true;
+            this.populate(this.capacity);
+            this.renderLoop();
+        }
     },
 
     escalate() {
@@ -197,6 +243,7 @@ const fireworksSystem = {
     },
 
     populate(amount) {
+        if (!this.canvas) return;
         for (let i = 0; i < amount; i++) {
             this.pool.push({
                 x: this.canvas.width * Math.random(),
@@ -212,7 +259,7 @@ const fireworksSystem = {
     },
 
     renderLoop() {
-        if (!this.isActive) return;
+        if (!this.isActive || !this.ctx || !this.canvas) return;
 
         this.ctx.fillStyle = "rgba(3, 3, 7, 0.16)";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
