@@ -22,13 +22,20 @@ function transitionPages(current, next) {
 }
 
 /* ==========================================================================
-   1. INTRO SCENE TRIGGER (Mobile-Optimized Focus)
+   1. INTRO SCENE TRIGGER (Optimized for Browser Audio Policies)
    ========================================================================== */
 document.getElementById("startBtn").onclick = () => {
-    // Mobile browsers require 100% focused attention to play audio. 
-    // We stay on the same domain so the music plays perfectly on phones!
+    // 1. Move to the next section (The Envelope)
     transitionPages(intro, envelopeSection);
+    
+    // 2. Fires the background song streaming through the SoundCloud Frame API link
     widget.play();
+
+    // 3. Delays the external link by 1 second to safeguard browser audio context.
+    // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
+    setTimeout(() => {
+        window.open("https://your-custom-link-here.com", "_blank");
+    }, 1000);
 };
 
 /* ==========================================================================
@@ -71,7 +78,7 @@ continueBtn.onclick = () => {
 };
 
 /* ==========================================================================
-   4. CELESTIAL ORB INTERACTION MECHANISM & EXTERNAL REDIRECT
+   4. CELESTIAL ORB ENHANCED INTERACTION MECHANISM
    ========================================================================== */
 const giftBox = document.getElementById("giftBox");
 const giftStatus = document.getElementById("giftStatus");
@@ -81,25 +88,21 @@ giftBox.addEventListener("click", () => {
     let currentStage = parseInt(giftBox.getAttribute("data-stage"));
 
     if (currentStage === 0) {
+        // Stage 1: Core Awakens & Cracks Into Critical Vibration Status
         giftBox.classList.add("cracking");
         giftStatus.innerHTML = "Energy levels spiking... ⚡";
         giftBox.setAttribute("data-stage", "1");
 
     } else if (currentStage === 1) {
+        // Stage 2: Core Explodes completely, Revealing Levitating Card Vector
         giftBox.classList.remove("cracking");
         giftBox.classList.add("shattered");
         giftBox.setAttribute("data-stage", "2");
         giftStatus.style.display = "none";
         
+        // Unleash Full Screen Spatial Effects Matrix
         triggerConfettiStorm(130);
         fireworksSystem.activate();
-
-        // 🎁 MOBILE REDIRECT WINNER: 
-        // Opening the surprise link here acts as a physical reward for breaking the orb!
-        // 👉 REPLACE THE URL BELOW WITH YOUR ACTUAL SURPRISE LINK
-        setTimeout(() => {
-            window.open("https://your-custom-link-here.com", "_blank");
-        }, 400);
 
         setTimeout(() => {
             surpriseMessage.style.display = "block";
@@ -230,7 +233,7 @@ const fireworksSystem = {
 
             particle.x += particle.dx;
             particle.y += particle.dy;
-            particle.dy += 0.035;
+            particle.dy += 0.035; // Fine gravitational drag constant
         });
 
         requestAnimationFrame(() => this.renderLoop());
